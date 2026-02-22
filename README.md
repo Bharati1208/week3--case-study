@@ -1,24 +1,41 @@
-# Week 3 Case Study – Terraform + Ansible
+# Week 3 Case Study: One-Click Infrastructure with Terraform + Ansible
 
-## Project Goal
+## Project Overview
 
-Create EC2 using Terraform and install NGINX using Ansible in one workflow.
+This project demonstrates how to launch infrastructure and configure an application automatically using Terraform and Ansible.
+
+With a single command, Terraform creates an EC2 instance and Ansible installs and configures NGINX on that server.
+
+This simulates a real DevOps workflow used to quickly create demo environments.
 
 ---
 
-## What This Project Does
+## Requirements Implemented
 
-1. Terraform creates an EC2 instance in AWS (us-east-1)
-2. Terraform outputs the public IP
-3. Ansible connects to the EC2 server using SSH
-4. Ansible installs and starts NGINX
-5. Custom message is added to index.html
+* Launch EC2 instance using Terraform
+* Store Terraform state remotely in AWS S3
+* Use Terraform output public IP in Ansible inventory
+* Install and configure NGINX using Ansible playbook
+* Add custom branding to index.html
+* Deploy infrastructure and application with one command
+
+---
+
+## Tools Used
+
+* Terraform – Infrastructure provisioning
+* Ansible – Configuration management
+* AWS EC2 – Virtual server
+* AWS S3 – Remote backend for Terraform state
+* NGINX – Web server
+* Linux – Operating system
 
 ---
 
 ## Project Structure
 
-week3_case_study/
+```text
+devops/week3/case_study/
 │
 ├── terraform/
 │   ├── main.tf
@@ -30,29 +47,46 @@ week3_case_study/
 │   ├── inventory.ini
 │   └── nginx.yml
 │
+├── deploy.sh
 └── README.md
+```
 
 ---
 
-## How to Run
+## How It Works
 
-Step 1: Initialize Terraform
+Step 1: Terraform creates EC2 instance
 
-terraform init
+Step 2: Terraform outputs public IP
 
-Step 2: Create Infrastructure
+Step 3: Ansible uses IP to connect to EC2 via SSH
 
-terraform apply -auto-approve
+Step 4: Ansible installs and starts NGINX
 
-Step 3: Run Ansible Playbook
-
-ansible-playbook -i inventory.ini nginx.yml
+Step 5: Ansible updates index.html with custom banner
 
 ---
 
-## Output
+## One-Click Deployment
 
-Open in browser:
+Run the following command:
+
+```bash
+./deploy.sh
+```
+
+This command will:
+
+* Create EC2 instance
+* Configure server using Ansible
+* Install and start NGINX
+* Deploy website with branding
+
+---
+
+## Verification
+
+Open browser:
 
 http://<EC2_PUBLIC_IP>
 
@@ -62,18 +96,20 @@ Welcome to Bharati Demo Server
 
 ---
 
-## Tools Used
+## Remote State Storage
 
-* Terraform
-* Ansible
-* AWS EC2
-* AWS S3 (Remote State)
-* NGINX
+Terraform state file is stored in AWS S3 for:
+
+* Team collaboration
+* State management
+* CI/CD compatibility
+
+---
+
+## Outcome
+
+Infrastructure and application are deployed successfully using Infrastructure as Code and Configuration Management.
 
 ---
 
-## Result
 
-Infrastructure and application deployed successfully.
-
----
